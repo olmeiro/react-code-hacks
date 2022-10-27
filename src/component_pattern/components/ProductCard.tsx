@@ -1,10 +1,13 @@
+import { ReactElement } from 'react';
+
 import styles from '../styles/styles.module.css'
 
 import { useProduct } from '../hooks/useProduct';
 import noImage from '../assets/no-image.jpg';
 
 interface Props {
-  product: Product
+  product: Product;
+  children?: ReactElement | ReactElement[]
 }
 
 interface Product {
@@ -30,7 +33,7 @@ interface ProductButtonProps {
   counter: number
 }
 
-const ProductButtons = ({ counter, increaseBy }: ProductButtonProps) => {
+export const ProductButtons = ({ counter, increaseBy }: ProductButtonProps) => {
   return (
     <div className={styles.buttonsContainer}>
       <button
@@ -46,13 +49,13 @@ const ProductButtons = ({ counter, increaseBy }: ProductButtonProps) => {
   )
 }
 
-export const ProductCard = ({ product }: Props) => {
+// 1_Ahora Product Card recibe children y se hace un HOC:
+
+export const ProductCard = ({ children, product }: Props) => {
   const { counter, increaseBy } = useProduct()
   return (
     <div className={styles.productCard} >
-      <ProductImage img={product.img} />
-      <ProductTitle title={product.title} />
-      <ProductButtons counter={counter} increaseBy={increaseBy} />
+      {children}
     </div>
   )
 }

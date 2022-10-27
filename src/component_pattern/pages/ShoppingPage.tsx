@@ -24,12 +24,12 @@ export const ShoppingPage = () => {
         flexWrap: 'wrap'
       }}>
         {/* forma 1 */}
-        {/* <ProductCard product={product} >
+        <ProductCard product={product} >
           <ProductCard.Image />
           <ProductCard.Title title={'Hola mundo'} />
           <ProductCard.Buttons />
         </ProductCard>
-        Necesitamos corregir el error que se genera ahora hasta este punto con la comentada de las nuevas propiedades del ProductCard en las lineas 28-30 */}
+
         {/* forma 2 */}
         <ProductCard product={product} >
           <ProductImage />

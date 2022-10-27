@@ -1,6 +1,6 @@
 import { BrowserRouter } from 'react-router-dom';
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
-import ShoppingPage from '../component_pattern/pages/ShoppingPage';
+import { ShoppingPage } from '../component_pattern/pages/ShoppingPage';
 
 import logo from '../logo.svg';
 

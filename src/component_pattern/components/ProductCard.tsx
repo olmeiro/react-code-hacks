@@ -26,7 +26,7 @@ export const ProductTitle = ({ title }: { title: string }) => { //esto obliga a 
 }
 
 interface ProductButtonProps {
-  increaseBy: (value) => void,
+  increaseBy: (value: number) => void,
   counter: number
 }
 

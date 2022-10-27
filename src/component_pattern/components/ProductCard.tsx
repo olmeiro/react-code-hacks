@@ -1,4 +1,4 @@
-import { ReactElement } from 'react';
+import { createContext, ReactElement, useContext } from 'react';
 
 import styles from '../styles/styles.module.css'
 
@@ -16,24 +16,56 @@ interface Product {
   img?: string
 }
 
-export const ProductImage = ({ img = '' }) => { // este string vacío hace la imagen opcional, esto para no usar interface.
+//interface del context:
+interface ProductContextProps {
+  counter: number;
+  increaseBy: (value: number) => void;
+  product: Product
+}
+
+//usamos createContext para pasar info a los hijos:
+const ProductContext = createContext({} as ProductContextProps)
+const { Provider } = ProductContext;
+
+export const ProductImage = ({ img = '' }) => {
+
+  const { product } = useContext(ProductContext);
+
+  let imgToShow: string;
+
+  if (img) {
+    imgToShow = img;
+  } else if (product.img) {
+    imgToShow = product.img
+  } else {
+    imgToShow = noImage;
+  }
+
   return (
-    <img className={styles.productImg} src={img ? img : noImage} alt="product image" />
+    <img className={styles.productImg} src={imgToShow} alt="product image" />
   )
 }
 
-export const ProductTitle = ({ title }: { title: string }) => { //esto obliga a que venga el titulo, si hay más props creo una interface.
+export const ProductTitle = ({ title }: { title?: string }) => {
+
+  const { product } = useContext(ProductContext);
+
   return (
-    <span className={styles.productDescription}>{title}</span>
+    <span className={styles.productDescription}>
+      {title ? title : product.title}
+    </span>
   )
 }
 
-interface ProductButtonProps {
-  increaseBy: (value) => void,
-  counter: number
-}
+// interface ProductButtonProps {
+//   increaseBy: (value: number) => void,
+//   counter: number
+// } ya no es necesaria esta interfaz
 
-export const ProductButtons = ({ counter, increaseBy }: ProductButtonProps) => {
+export const ProductButtons = () => {
+
+  const { counter, increaseBy } = useContext(ProductContext)
+
   return (
     <div className={styles.buttonsContainer}>
       <button
@@ -49,13 +81,21 @@ export const ProductButtons = ({ counter, increaseBy }: ProductButtonProps) => {
   )
 }
 
-// 1_Ahora Product Card recibe children y se hace un HOC:
-
+// 1_Ahora Product Card recibe children y se hace un HOC: 
 export const ProductCard = ({ children, product }: Props) => {
   const { counter, increaseBy } = useProduct()
   return (
-    <div className={styles.productCard} >
-      {children}
-    </div>
+    <Provider value={{
+      counter, increaseBy, product
+    }}>
+      <div className={styles.productCard} >
+        {children}
+      </div>
+    </Provider>
   )
 }
+
+//Añadimos las propiedad a ProductCard que seran consumidas en ShoppingPage
+ProductCard.Title = ProductTitle;
+ProductCard.Image = ProductImage;
+ProductCard.Buttons = ProductButtons;

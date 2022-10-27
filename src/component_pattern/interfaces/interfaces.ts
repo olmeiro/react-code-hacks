@@ -21,3 +21,11 @@ export interface ProductContextProps {
   increaseBy: (value: number) => void;
   product: Product;
 }
+
+//la idea es definir la interfaz de ProductCard linea 14 del index de components:
+export interface ProductCardHOCProps {
+  ({ children, product }: ProductCardProps): JSX.Element;
+  Title: ({ title }: { title?: string }) => JSX.Element;
+  Image: ({ img }: { img?: string }) => JSX.Element;
+  Buttons: () => JSX.Element;
+}

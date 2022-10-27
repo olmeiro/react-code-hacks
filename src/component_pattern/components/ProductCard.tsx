@@ -13,27 +13,46 @@ interface Product {
   img?: string
 }
 
-export const ProductCard = ({ product }: Props) => {
-  const { counter, increaseBy } = useProduct()
+export const ProductImage = ({ img = '' }) => { // este string vacío hace la imagen opcional, esto para no usar interface.
   return (
-    <div className={styles.productCard} >
-      <img className={styles.productImg} src={product.img ? product.img : noImage} alt="coffee mug" />
-      <span className={styles.productDescription}>{product.title}</span>
+    <img className={styles.productImg} src={img ? img : noImage} alt="product image" />
+  )
+}
 
-      <div className={styles.buttonsContainer}>
-        <button
-          className={styles.buttonMinus}
-          onClick={() => increaseBy(-1)}
-        > - </button>
-        <div className={styles.countLabel}> {counter} </div>
-        <button
-          className={styles.buttonAdd}
-          onClick={() => increaseBy(1)}
-        > + </button>
-      </div>
+export const ProductTitle = ({ title }: { title: string }) => { //esto obliga a que venga el titulo, si hay más props creo una interface.
+  return (
+    <span className={styles.productDescription}>{title}</span>
+  )
+}
 
+interface ProductButtonProps {
+  increaseBy: (value) => void,
+  counter: number
+}
+
+const ProductButtons = ({ counter, increaseBy }: ProductButtonProps) => {
+  return (
+    <div className={styles.buttonsContainer}>
+      <button
+        className={styles.buttonMinus}
+        onClick={() => increaseBy(-1)}
+      > - </button>
+      <div className={styles.countLabel}> {counter} </div>
+      <button
+        className={styles.buttonAdd}
+        onClick={() => increaseBy(1)}
+      > + </button>
     </div>
   )
 }
 
-// Esta es la manera tradicional de hacer componentes, vemos que tiene muchos styles, además es complicado informarle al padre sobre cambios, además como desarrolladores no tienen control al respecto, solo mandan el producto. Si tenemos una tarjeta que nos avise sobre que productos se han agregado al carrito va ser un problema interactuar con el y este componente.
+export const ProductCard = ({ product }: Props) => {
+  const { counter, increaseBy } = useProduct()
+  return (
+    <div className={styles.productCard} >
+      <ProductImage img={product.img} />
+      <ProductTitle title={product.title} />
+      <ProductButtons counter={counter} increaseBy={increaseBy} />
+    </div>
+  )
+}

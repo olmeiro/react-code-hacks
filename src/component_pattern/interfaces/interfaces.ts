@@ -1,4 +1,5 @@
 import { ReactElement } from "react";
+import { Props as ProductCardProps } from "../components/ProductCard";
 
 // export interface Props {
 //   product: Product;
@@ -29,3 +30,4 @@ export interface ProductCardHOCProps {
   Image: ({ img }: { img?: string }) => JSX.Element;
   Buttons: () => JSX.Element;
 }
+

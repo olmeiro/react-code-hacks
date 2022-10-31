@@ -1,11 +1,5 @@
-// import { ProductButtons, ProductCard, ProductImage, ProductTitle } from "../components/ProductCard"
-
-// import { ProductCard } from "../components/ProductCard"
-// import { ProductImage } from "../components/ProductImage"
-// import { ProductTitle } from '../components/ProductTitle';
-// import { ProductButtons } from '../components/ProductButtons'; Para evitar estas importaciones utilizamos un archivo index y usamos:
-
 import { ProductCard, ProductImage, ProductTitle, ProductButtons } from '../components'
+import '../styles/custom-styles.css'
 
 const product = {
   id: '1',
@@ -31,7 +25,11 @@ export const ShoppingPage = () => {
         </ProductCard>
 
         {/* forma 2 */}
-        <ProductCard product={product} >
+        {/* Vamos habilitar el className en este HOC */}
+        <ProductCard 
+          product={product}
+          className='bg-dark'
+        >
           <ProductImage />
           <ProductTitle />
           <ProductButtons />

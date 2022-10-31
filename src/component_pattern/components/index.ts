@@ -1,5 +1,3 @@
-// Para arreglar el error en la forma1 del ShoppingPage hacemos cambios en ProductCard
-
 import { ProductCard as ProductCardHOC } from "./ProductCard";
 
 import { ProductButtons } from "./ProductButtons";

@@ -18,14 +18,16 @@ export const ShoppingPage = () => {
         flexWrap: 'wrap'
       }}>
         {/* forma 1 */}
-        <ProductCard product={product} >
+        <ProductCard 
+          product={product}
+          className='bg-dark text-white'
+         >
           <ProductCard.Image />
-          <ProductCard.Title />
-          <ProductCard.Buttons />
+          <ProductCard.Title className='custom-bold' />
+          <ProductCard.Buttons className='custom-buttons' />
         </ProductCard>
 
         {/* forma 2 */}
-        {/* Vamos habilitar el className en este HOC */}
         <ProductCard 
           product={product}
           className='bg-dark text-white'

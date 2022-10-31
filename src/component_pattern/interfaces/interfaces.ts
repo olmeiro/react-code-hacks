@@ -1,11 +1,5 @@
-import { ReactElement } from "react";
 import { Props as ProductCardProps } from "../components/ProductCard";
 import { Props as ProductTitleProps } from '../components/ProductTitle'
-
-// export interface ProductCardProps {
-//   product: Product;
-//   children?: ReactElement | ReactElement[];
-// }esto lo movimos en el mismo archivo de ProductCard
 
 export interface Product {
   id: string;
@@ -20,11 +14,11 @@ export interface ProductContextProps {
   product: Product;
 }
 
-//la idea es definir la interfaz de ProductCard linea 14 del index de components:
+//Esta es la interfaz para el componente de forma 1 en ShoppingPage:
 export interface ProductCardHOCProps {
   ({ children, product }: ProductCardProps): JSX.Element;
   Title: ({ title }: ProductTitleProps) => JSX.Element;
   Image: ({ img }: { img?: string }) => JSX.Element;
-  Buttons: () => JSX.Element;
+  Buttons: ({ className }: {className?: string}) => JSX.Element;
 }
 

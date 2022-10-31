@@ -28,11 +28,11 @@ export const ShoppingPage = () => {
         {/* Vamos habilitar el className en este HOC */}
         <ProductCard 
           product={product}
-          className='bg-dark'
+          className='bg-dark text-white'
         >
           <ProductImage className='custom-image ' />
-          <ProductTitle className='text-white custom-bold' />
-          <ProductButtons />
+          <ProductTitle className='custom-bold' />
+          <ProductButtons className='custom-buttons' />
         </ProductCard>
 
       </div>

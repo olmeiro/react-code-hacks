@@ -36,6 +36,25 @@ export const ShoppingPage = () => {
           <ProductTitle className='custom-bold' />
           <ProductButtons className='custom-buttons' />
         </ProductCard>
+       
+       {/* Prop style in each component */}
+        <ProductCard 
+          product={product}
+         style={{
+          backgroundColor: '#70D1F8'
+         }}
+        >
+          <ProductImage style={{
+            boxShadow: '10px 10px 10px 10px rgba(0,0,0,0.5)'
+          }} />
+          <ProductTitle style={{
+            fontWeight: 'bold'
+          }}/>
+          <ProductButtons style={{
+            display: 'flex',
+            justifyContent: 'end'
+          }}/>
+        </ProductCard>
 
       </div>
     </div>

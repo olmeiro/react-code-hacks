@@ -20,7 +20,7 @@ export const ShoppingPage = () => {
         {/* forma 1 */}
         <ProductCard product={product} >
           <ProductCard.Image />
-          <ProductCard.Title title={'Hola mundo'} />
+          <ProductCard.Title />
           <ProductCard.Buttons />
         </ProductCard>
 
@@ -30,8 +30,8 @@ export const ShoppingPage = () => {
           product={product}
           className='bg-dark'
         >
-          <ProductImage />
-          <ProductTitle />
+          <ProductImage className='custom-image ' />
+          <ProductTitle className='text-white custom-bold' />
           <ProductButtons />
         </ProductCard>
 

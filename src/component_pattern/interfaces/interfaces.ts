@@ -1,14 +1,11 @@
 import { ReactElement } from "react";
 import { Props as ProductCardProps } from "../components/ProductCard";
+import { Props as ProductTitleProps } from '../components/ProductTitle'
 
-// export interface Props {
+// export interface ProductCardProps {
 //   product: Product;
 //   children?: ReactElement | ReactElement[];
-// } necesitamos que estas props en ProductCard sean más especificas:-> para que sean mas faciles de leer:
-export interface ProductCardProps {
-  product: Product;
-  children?: ReactElement | ReactElement[];
-}
+// }esto lo movimos en el mismo archivo de ProductCard
 
 export interface Product {
   id: string;
@@ -26,7 +23,7 @@ export interface ProductContextProps {
 //la idea es definir la interfaz de ProductCard linea 14 del index de components:
 export interface ProductCardHOCProps {
   ({ children, product }: ProductCardProps): JSX.Element;
-  Title: ({ title }: { title?: string }) => JSX.Element;
+  Title: ({ title }: ProductTitleProps) => JSX.Element;
   Image: ({ img }: { img?: string }) => JSX.Element;
   Buttons: () => JSX.Element;
 }

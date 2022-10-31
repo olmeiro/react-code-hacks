@@ -3,7 +3,7 @@ import { createContext, ReactElement } from 'react';
 import styles from '../styles/styles.module.css'
 
 import { useProduct } from '../hooks/useProduct';
-import { Product, ProductCardProps, ProductContextProps } from '../interfaces/interfaces';
+import { Product, ProductContextProps } from '../interfaces/interfaces';
 
 export const ProductContext = createContext({} as ProductContextProps)
 const { Provider } = ProductContext;

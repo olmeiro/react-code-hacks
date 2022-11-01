@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { ProductCard, ProductImage, ProductTitle, ProductButtons } from '../components'
 import { Product } from '../interfaces/interfaces'
 import '../styles/custom-styles.css'
@@ -14,9 +16,20 @@ const product2 = {
   img: './coffee-mug2.png'
 }
 
-const products: Product[] = [product1, product2]
+const products: Product[] = [product1, product2];
+
+// tipado para el useState: Podemos extender las prop de la interface:
+interface ProductInCart extends Product {
+  count: number
+}
 
 export const ShoppingPage = () => {
+
+  //tipamos el useState->
+  const [shoppingCart, setShoppingCart] = useState<{ [key: string]: ProductInCart }>({});
+
+  console.log(shoppingCart)
+
   return (
     <div>
       <h1>Shopping Store</h1>

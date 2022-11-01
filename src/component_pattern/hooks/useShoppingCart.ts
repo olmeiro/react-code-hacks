@@ -5,21 +5,22 @@ export const useShoppingCart = () => {
   const [shoppingCart, setShoppingCart] = useState<{ [key: string]: ProductInCart }>({});
 
   const onProductCountChange = ({ count, product}: { count:number, product: Product }) => {
+    console.log({count})
 
     setShoppingCart( oldShoppingCart => {
 
-      const productIntCart: ProductInCart = oldShoppingCart[product.id] || { ...product, count: 0 }  //en caso que sea null de primera.
-      if (Math.max(productIntCart.count + count, 0) > 0) {
-        productIntCart.count += count;
+      if( count  === 0 ){
+        const { [product.id]: toDelete, ...rest } = oldShoppingCart;
 
         return {
-          ...oldShoppingCart,
-          [product.id]: productIntCart
+          ...rest
         }
       }
 
-      const { [product.id]: toDelete, ...rest } = oldShoppingCart;
-      return {...rest};
+      return {
+        ...oldShoppingCart,
+        [ product.id ]: { ...product, count }
+      }
 
     })
   }

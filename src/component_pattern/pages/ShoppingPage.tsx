@@ -1,68 +1,11 @@
-import { useState } from 'react'
-import { json } from 'react-router-dom'
-
 import { ProductCard, ProductImage, ProductTitle, ProductButtons } from '../components'
-import { Product } from '../interfaces/interfaces'
+import { products } from '../data/products'
+import { useShoppingCart } from '../hooks/useShoppingCart'
 import '../styles/custom-styles.css'
-
-const product1 = {
-  id: '1',
-  title: 'Coffe Mug - Card',
-  img: './coffee-mug.png'
-}
-
-const product2 = {
-  id: '2',
-  title: 'Coffe Mug - Card',
-  img: './coffee-mug2.png'
-}
-
-const products: Product[] = [product1, product2];
-
-// tipado para el useState: Podemos extender las prop de la interface:
-interface ProductInCart extends Product {
-  count: number
-}
 
 export const ShoppingPage = () => {
 
-  //este state es el que debe predominar->
-  const [shoppingCart, setShoppingCart] = useState<{ [key: string]: ProductInCart }>({});
-
-  const onProductCountChange = ({ count, product}: { count:number, product: Product }) => {
-
-    setShoppingCart( oldShoppingCart => {
-      // if( count  === 0 ){
-      //   const { [product.id]: toDelete, ...rest } = oldShoppingCart;
-
-      //   return {
-      //     ...rest
-      //   }
-      // }
-      // return {
-      //   ...oldShoppingCart,
-      //   [ product.id ]: { ...product, count }
-      // }
-
-      // La sigte es la forma de resolver el problema cuando el estado ya no lo maneja el hook useProduct:
-      //el problema es cuando hay cero articulos elegidos->
-
-      const productIntCart: ProductInCart = oldShoppingCart[product.id] || { ...product, count: 0 }  //en caso que sea null de primera.
-      if (Math.max(productIntCart.count + count, 0) > 0) {
-        productIntCart.count += count;
-
-        return {
-          ...oldShoppingCart,
-          [product.id]: productIntCart
-        }
-      }
-
-      //Borrar el producto si no pasa en 51->
-      const { [product.id]: toDelete, ...rest } = oldShoppingCart;
-      return {...rest};
-
-    })
-  }
+  const { shoppingCart, onProductCountChange } = useShoppingCart();
 
   return (
     <div>
@@ -93,7 +36,6 @@ export const ShoppingPage = () => {
 
       <div className='shopping-cart'>
         {
-          
         Object.entries(shoppingCart).map(([key, product]) => (
             <ProductCard 
               key={key}
@@ -115,15 +57,8 @@ export const ShoppingPage = () => {
               />
             </ProductCard>
           ))
-        }
-     
+        }     
       </div>
-
-      {/* <div>
-        <code>
-          {JSON.stringify(shoppingCart, null, 5)}
-        </code>
-      </div> */}
     </div>
   )
 }

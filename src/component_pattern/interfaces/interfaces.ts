@@ -30,3 +30,8 @@ export interface onChangeArgs {
   product: Product;
   count: number;
 }
+
+// tipado para el useState: Podemos extender las prop de la interface:
+export interface ProductInCart extends Product {
+  count: number
+}

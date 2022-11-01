@@ -25,7 +25,7 @@ export interface ProductCardHOCProps {
 }
 
 
-//types for onChage in ProductCard
+//types for onChage in useProduct
 export interface onChangeArgs {
   product: Product;
   count: number;

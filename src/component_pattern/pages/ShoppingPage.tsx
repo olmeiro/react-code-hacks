@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { json } from 'react-router-dom'
 
 import { ProductCard, ProductImage, ProductTitle, ProductButtons } from '../components'
 import { Product } from '../interfaces/interfaces'
@@ -29,7 +30,29 @@ export const ShoppingPage = () => {
   const [shoppingCart, setShoppingCart] = useState<{ [key: string]: ProductInCart }>({});
 
   const onProductCountChange = ({ count, product}: { count:number, product: Product }) => {
-    console.log('onProductOnChange', count, product);
+    // console.log('onProductOnChange', count, product);
+    //prohibido mutar el objeto ->
+    // shoppingCart[ product.id ] = {...product, count};
+
+    //mejor usando el set del estado->
+    setShoppingCart( oldShoppingCart => {
+
+      // si el count es cero lo eliminamos->
+      if( count  === 0 ){
+        const { [product.id]: toDelete, ...rest } = oldShoppingCart;
+        console.log(toDelete)
+
+        return {
+          ...rest
+        }
+      }
+
+
+      return {
+        ...oldShoppingCart,
+        [ product.id ]: { ...product, count }
+      }
+    })
   }
 
   return (
@@ -90,6 +113,12 @@ export const ShoppingPage = () => {
             <ProductImage className='custom-image ' />
             <ProductButtons className='custom-buttons' />
           </ProductCard>
+      </div>
+
+      <div>
+        <code>
+          {JSON.stringify(shoppingCart, null, 5)}
+        </code>
       </div>
     </div>
   )

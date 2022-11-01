@@ -36,11 +36,11 @@ export const ShoppingPage = () => {
 
     //mejor usando el set del estado->
     setShoppingCart( oldShoppingCart => {
+      //console.log("oldShoppingCart", oldShoppingCart);
 
       // si el count es cero lo eliminamos->
       if( count  === 0 ){
         const { [product.id]: toDelete, ...rest } = oldShoppingCart;
-        console.log(toDelete)
 
         return {
           ...rest
@@ -82,8 +82,12 @@ export const ShoppingPage = () => {
       </div>
 
       <div className='shopping-cart'>
-      <ProductCard 
-            product={product2}
+        {
+          
+        Object.entries(shoppingCart).map(([key, product]) => (
+            <ProductCard 
+            key={key}
+            product={product}
             className='bg-dark text-white'
             style={{
               width: '100px'
@@ -91,35 +95,24 @@ export const ShoppingPage = () => {
         
           >
             <ProductImage className='custom-image ' />
-            <ProductButtons className='custom-buttons' />
+            <ProductButtons 
+              className='custom-buttons'
+              style={{
+                display: 'flex',
+                justifyContent: 'center'
+              }}
+            />
           </ProductCard>
-      <ProductCard 
-            product={product2}
-            className='bg-dark text-white'
-            style={{
-              width: '100px'
-            }}
-          >
-            <ProductImage className='custom-image ' />
-            <ProductButtons className='custom-buttons' />
-          </ProductCard>
-      <ProductCard 
-            product={product2}
-            className='bg-dark text-white'
-            style={{
-              width: '100px'
-            }}
-          >
-            <ProductImage className='custom-image ' />
-            <ProductButtons className='custom-buttons' />
-          </ProductCard>
+          ))
+        }
+     
       </div>
 
-      <div>
+      {/* <div>
         <code>
           {JSON.stringify(shoppingCart, null, 5)}
         </code>
-      </div>
+      </div> */}
     </div>
   )
 }

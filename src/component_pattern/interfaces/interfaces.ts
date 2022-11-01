@@ -24,3 +24,9 @@ export interface ProductCardHOCProps {
   Buttons: (Props: ProductButtonsProps) => JSX.Element;
 }
 
+
+//types for onChage in ProductCard
+export interface onChangeArgs {
+  product: Product;
+  count: number;
+}

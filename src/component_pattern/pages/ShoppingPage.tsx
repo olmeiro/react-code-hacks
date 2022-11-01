@@ -30,21 +30,37 @@ export const ShoppingPage = () => {
   const [shoppingCart, setShoppingCart] = useState<{ [key: string]: ProductInCart }>({});
 
   const onProductCountChange = ({ count, product}: { count:number, product: Product }) => {
-    console.log({count}) //vamos a hacer que count aumente en unidades de 1, es decir, que el hook no controle el State
+
     setShoppingCart( oldShoppingCart => {
-      if( count  === 0 ){
-        const { [product.id]: toDelete, ...rest } = oldShoppingCart;
+      // if( count  === 0 ){
+      //   const { [product.id]: toDelete, ...rest } = oldShoppingCart;
+
+      //   return {
+      //     ...rest
+      //   }
+      // }
+      // return {
+      //   ...oldShoppingCart,
+      //   [ product.id ]: { ...product, count }
+      // }
+
+      // La sigte es la forma de resolver el problema cuando el estado ya no lo maneja el hook useProduct:
+      //el problema es cuando hay cero articulos elegidos->
+
+      const productIntCart: ProductInCart = oldShoppingCart[product.id] || { ...product, count: 0 }  //en caso que sea null de primera.
+      if (Math.max(productIntCart.count + count, 0) > 0) {
+        productIntCart.count += count;
 
         return {
-          ...rest
+          ...oldShoppingCart,
+          [product.id]: productIntCart
         }
       }
 
+      //Borrar el producto si no pasa en 51->
+      const { [product.id]: toDelete, ...rest } = oldShoppingCart;
+      return {...rest};
 
-      return {
-        ...oldShoppingCart,
-        [ product.id ]: { ...product, count }
-      }
     })
   }
 

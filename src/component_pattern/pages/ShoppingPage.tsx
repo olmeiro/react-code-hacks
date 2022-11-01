@@ -26,19 +26,12 @@ interface ProductInCart extends Product {
 
 export const ShoppingPage = () => {
 
-  //tipamos el useState->
+  //este state es el que debe predominar->
   const [shoppingCart, setShoppingCart] = useState<{ [key: string]: ProductInCart }>({});
 
   const onProductCountChange = ({ count, product}: { count:number, product: Product }) => {
-    // console.log('onProductOnChange', count, product);
-    //prohibido mutar el objeto ->
-    // shoppingCart[ product.id ] = {...product, count};
-
-    //mejor usando el set del estado->
+    console.log({count}) //vamos a hacer que count aumente en unidades de 1, es decir, que el hook no controle el State
     setShoppingCart( oldShoppingCart => {
-      //console.log("oldShoppingCart", oldShoppingCart);
-
-      // si el count es cero lo eliminamos->
       if( count  === 0 ){
         const { [product.id]: toDelete, ...rest } = oldShoppingCart;
 
